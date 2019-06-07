@@ -6,10 +6,10 @@ from tweepy.streaming import StreamListener
 import time
 def readtweet():
     #consumer key, consumer secret, access token, access secret.
-    ckey="WNxuoNZkT2YfX65mio3eAvf8f"
-    csecret="QxhuS1xu6NxyfhiSErxTmhYgRgK8HupSPJzVhBWkSXIJEZ4hme"
-    atoken="1071084889154310145-qYXNlTJtyne6iqaaaRDipyYWMR7wyh"
-    asecret="zjrmqthh0W7cYuVGjt7Uztgn6tgkzWZCUEhUob8m6CxKd"
+    ckey=""
+    csecret=""
+    atoken=""
+    asecret=""
 
     import newsread
     import os
