@@ -74,13 +74,9 @@ kw=[]
 for i in range(len(ckw)):
     for j in range(len(ckw[i])):
         kw.append(ckw[i][j])
+print(kw)
 
 
-print(kw)       
-        
 def returncleaned():
     return kw
-        
-
-        
         

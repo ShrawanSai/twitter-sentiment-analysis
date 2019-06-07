@@ -8,8 +8,11 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import svm
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import mean_squared_error,r2_score,accuracy_score
 import cleaner
+from sklearn.metrics import accuracy_score
 #####
 
 path_training_data=os.getcwd()+'/twitterdatatrain.csv'
@@ -53,6 +56,8 @@ X_train_tfidfvec=tfidf_vec.fit_transform(training_features)
 print(77777777777777777777777777)
 
 classifier=svm.SVC(probability=True)
+#classifier = KNeighborsClassifier(n_neighbors=5)
+#classifier= MultinomialNB()
 print(666666666666666666666666)
 
 
@@ -60,9 +65,8 @@ classifier.fit(X_train_tfidfvec,y_train)
 
 print(5555555555555555)
 
-'''
 
-testing_features=vectorizer.fit_transform(y_train)
+testing_features=vectorizer.transform(X_test)
 
 np.asarray(testing_features)
 
@@ -72,8 +76,9 @@ X_test_tfidfvec=tfidf_vec.fit_transform(testing_features)
 
 ypredict= classifier.predict(X_test_tfidfvec)
 
-mse= mean_squared_error(ytest,ypredict)
-print(mse)'''
+print(444444444444)
+accuracy = accuracy_score(ypredict, y_test)
+print(accuracy)
 
 
 

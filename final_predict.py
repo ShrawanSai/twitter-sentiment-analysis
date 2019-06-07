@@ -4,58 +4,62 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
-path_test_data=os.getcwd()+'/livestream1.txt'
-import cleaner
 
-print('Importing the trained classifier ')
-f = open('da_classifier.pickle', 'rb')
-clss = pickle.load(f)
-f.close()
-###### get vectorizer ######
-f = open('da_vectorizer.pickle', 'rb')
-vectorizer = pickle.load(f)
-f.close()
+def predict():
+   path_test_data=os.getcwd()+'/livestream1.txt'
+   import cleaner
 
-#load the data
+   print('Importing the trained classifier ')
+   f = open('da_classifier.pickle', 'rb')
+   clss = pickle.load(f)
+   f.close()
+   ###### get vectorizer ######
+   f = open('da_vectorizer.pickle', 'rb')
+   vectorizer = pickle.load(f)
+   f.close()
 
-data=[]
+   #load the data
 
-eval_data=open(path_test_data,'r')
+   data=[]
 
-for sent_msg in eval_data:
-   data.append(' '.join(sent_msg.split())) #copied from sample code in github
-df= pd.DataFrame(data)
-#print(data)
-df=df[0]
-#print(df)
-#cleaning the data and parsing
+   eval_data=open(path_test_data,'r')
 
-clean_data=[]
+   for sent_msg in eval_data:
+      data.append(' '.join(sent_msg.split())) #copied from sample code in github
+   df= pd.DataFrame(data)
+   #print(data)
+   df=df[0]
+   #print(df)
+   #cleaning the data and parsing
 
-for i in df:
-   clean_data.append(i)
-xxxxx=clean_data
-clean_data=cleaner.clean(clean_data)
-count_vectorized_data=vectorizer.transform(clean_data)
+   clean_data=[]
 
-np.asarray(count_vectorized_data)
+   for i in df:
+      clean_data.append(i)
+   xxxxx=clean_data
+   clean_data=cleaner.clean(clean_data)
+   count_vectorized_data=vectorizer.transform(clean_data)
 
-tfidf_trans=TfidfTransformer()
+   np.asarray(count_vectorized_data)
 
-X_data_tfidfed=tfidf_trans.fit_transform(count_vectorized_data)
+   tfidf_trans=TfidfTransformer()
 
-####
-predictions=clss.predict(X_data_tfidfed)
+   X_data_tfidfed=tfidf_trans.fit_transform(count_vectorized_data)
 
-conf=clss.predict_proba(X_data_tfidfed)
-print(conf)
+   ####
+   predictions=clss.predict(X_data_tfidfed)
 
-final=pd.DataFrame(data={'Tweet':xxxxx,'Sentiment':predictions})
+   conf=clss.predict_proba(X_data_tfidfed)
+   #print(conf)
 
-print('making predictions')
-pred_result=list(predictions)
-print(predictions)
+   final=pd.DataFrame(data={'Tweet':xxxxx,'Sentiment':predictions})
 
-print('Creating files : Bag of words and the final submission')
-final.to_csv(('New_bag_of_words.csv'), index=False, quoting=3, escapechar='\\',sep='~')
-print('Done. Check folder')
+   print('making predictions')
+   pred_result=list(predictions)
+   #print(predictions)
+
+   print('Creating files : Bag of words and the final submission')
+   final.to_csv(('New_bag_of_words.csv'), index=False, quoting=3, escapechar='\\',sep='~')
+   final.to_csv(('output.txt'), index=False, quoting=3, escapechar='\\',sep='~')
+   print('Done. Check folder')
+   return (xxxxx,predictions)
